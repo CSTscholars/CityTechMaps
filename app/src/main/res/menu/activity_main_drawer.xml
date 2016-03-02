@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Floors">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_floor_7"
+                    android:title="7th Floor" />
+                <item
+                    android:id="@+id/nav_floor_8"
+                    android:title="8th Floor" />
+                <item
+                    android:id="@+id/nav_floor_9"
+                    android:title="9th Floor" />
+                <item
+                    android:id="@+id/nav_floor_10"
+                    android:title="10th Floor" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Utilities">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_exit"
+                android:title="Exit" />
+        </menu>
+    </item>
+
+</menu>
