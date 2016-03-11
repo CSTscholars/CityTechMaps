@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<floor>
+    <id>9</id>
+    <department>CST</department>
+    <rooms>
+        <room>
+            <id>901</id>
+            <name>Computer Lab 1</name>
+            <description>The first computer lab of the ninth floor</description>
+            <location
+                x="0"
+                y="0" />
+        </room>
+    </rooms>
+</floor>

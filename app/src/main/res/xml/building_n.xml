@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<building>
+    <id>1</id>
+    <name>Namm Building</name>
+    <location
+        x="0"
+        y="0">25 Chapel St.
+    </location>
+    <floors>
+        <floor src="floor_9.xml">9</floor>
+    </floors>
+</building>
