@@ -1,9 +1,12 @@
 package org.citytechmaps;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Raff on 2/28/2016.
  */
-public class Room {
+public class Room implements Parcelable{
     private int id;
     private String name;
     private int x, y;
@@ -24,6 +27,42 @@ public class Room {
         this.y = y;
         this.floor = floor;
         this.description = description;
+    }
+
+    protected Room(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        x = in.readInt();
+        y = in.readInt();
+        floor = in.readInt();
+        description = in.readString();
+    }
+
+    public static final Creator<Room> CREATOR = new Creator<Room>() {
+        @Override
+        public Room createFromParcel(Parcel in) {
+            return new Room(in);
+        }
+
+        @Override
+        public Room[] newArray(int size) {
+            return new Room[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeInt(x);
+        dest.writeInt(y);
+        dest.writeInt(floor);
+        dest.writeString(description);
     }
 
     public int getId() {
@@ -73,4 +112,6 @@ public class Room {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }
