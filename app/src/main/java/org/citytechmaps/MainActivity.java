@@ -1,5 +1,6 @@
 package org.citytechmaps;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Show sample roomview
+        Room sampleRoom = new Room(901, "Room N-901", 60, 100, 9, "A standard classroom used primarily for lectures regarding CST courses.", R.drawable.default_classroom);
+        Intent sampleIntent = new Intent(getApplicationContext(), RoomActivity.class);
+        sampleIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        sampleIntent.putExtra("room", sampleRoom);
+
+        startActivity(sampleIntent);
     }
 
     @Override

@@ -12,21 +12,16 @@ public class Room implements Parcelable{
     private int x, y;
     private int floor;
     private String description;
+    private int img;
 
-    public Room() {
-    }
-
-    public Room(int id) {
-        this.id = id;
-    }
-
-    public Room(int id, String name, int x, int y, int floor, String description) {
+    public Room(int id, String name, int x, int y, int floor, String description, int img) {
         this.id = id;
         this.name = name;
         this.x = x;
         this.y = y;
         this.floor = floor;
         this.description = description;
+        this.img = img;
     }
 
     protected Room(Parcel in) {
@@ -36,6 +31,7 @@ public class Room implements Parcelable{
         y = in.readInt();
         floor = in.readInt();
         description = in.readString();
+        img = in.readInt();
     }
 
     public static final Creator<Room> CREATOR = new Creator<Room>() {
@@ -63,6 +59,7 @@ public class Room implements Parcelable{
         dest.writeInt(y);
         dest.writeInt(floor);
         dest.writeString(description);
+        dest.writeInt(img);
     }
 
     public int getId() {
@@ -113,5 +110,11 @@ public class Room implements Parcelable{
         this.description = description;
     }
 
+    public int getImg() {
+        return img;
+    }
 
+    public void setImg(int img) {
+        this.img = img;
+    }
 }
