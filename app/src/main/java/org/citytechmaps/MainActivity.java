@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Show sample roomview
-        Room sampleRoom = new Room(901, "Room N-901", 60, 100, 9, "A standard classroom used primarily for lectures regarding CST courses.", R.drawable.default_classroom);
+        Room sampleRoom = new Room(901, "N-901", 60, 100, 9, "A standard classroom used primarily for lectures regarding CST courses.", R.drawable.default_classroom);
         Intent sampleIntent = new Intent(getApplicationContext(), RoomActivity.class);
         sampleIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         sampleIntent.putExtra("room", sampleRoom);
