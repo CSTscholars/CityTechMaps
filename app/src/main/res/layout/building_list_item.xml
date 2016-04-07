@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <TextView
+        android:id="@+id/tvBuildingShorthand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:layout_centerVertical="true"
+        android:textSize="40sp"
+        android:text="N"
+        android:textStyle="bold"
+        android:textColor="@color/default_shorthand_color"/>
+
+    <TextView
+        android:id="@+id/tvBuildingName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textSize="20sp"
+        android:textColor="@color/list_text"
+        tools:text="Nahm Hall"
+        android:layout_toRightOf="@id/tvBuildingShorthand"/>
+
+</RelativeLayout>
+

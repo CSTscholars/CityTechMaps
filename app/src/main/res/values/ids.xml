@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI GENERAL -->
+    <item name="generic_activity" type="id"/>
+    <item name="generic_drawer_activity" type="id"/>
+
+    <!-- UI LIST -->
+    <item name="building_list_activity" type="id"/>
+    <item name="building_list_fragment" type="id"/>
+
+    <!-- LOADER -->
+    <item name="building_list_cursor_loader" type="id"/>
+    <item name="building_loader" type="id"/>
+    <item name="data_loader" type="id"/>
+    <item name="sqlite_cursor_loader" type="id"/>
+
+</resources>
