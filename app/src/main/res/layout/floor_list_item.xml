@@ -8,8 +8,8 @@
         android:id="@+id/tvFloorNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="16dp"
         android:text="@string/example_floor"
-        android:textSize="24sp"/>
+        android:textSize="20sp"/>
 
 </LinearLayout>
