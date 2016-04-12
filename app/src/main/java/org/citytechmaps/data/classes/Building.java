@@ -6,7 +6,7 @@ public class Building {
     private String shorthand;
     private String color;
     private String address;
-    private int x, y;
+    private double latitude, longitude;
     private String description;
 
     public Building() {
@@ -15,8 +15,8 @@ public class Building {
         this.shorthand = "";
         this.color = "";
         this.address = "";
-        this.x = 0;
-        this.y = 0;
+        this.latitude = 0;
+        this.longitude = 0;
         this.description = "";
     }
 
@@ -60,20 +60,20 @@ public class Building {
         this.address = address;
     }
 
-    public int getX() {
-        return x;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public int getY() {
-        return y;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String getDescription() {

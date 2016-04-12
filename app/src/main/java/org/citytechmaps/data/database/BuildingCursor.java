@@ -31,8 +31,8 @@ public class BuildingCursor extends CursorWrapper{
         String shorthand = getString(getColumnIndex(S.COLUMN_BUILDING_SHORTHAND));
         String color = getString(getColumnIndex(S.COLUMN_BUILDING_COLOR));
         String address = getString(getColumnIndex(S.COLUMN_BUILDING_ADDRESS));
-        int x = getInt(getColumnIndex(S.COLUMN_BUILDING_X));
-        int y = getInt(getColumnIndex(S.COLUMN_BUILDING_Y));
+        double latitude = getDouble(getColumnIndex(S.COLUMN_BUILDING_LATITUDE));
+        double longitude = getDouble(getColumnIndex(S.COLUMN_BUILDING_LONGITUDE));
         String description = getString(getColumnIndex(S.COLUMN_BUILDING_DESCRIPTION));
 
         building.setId(id);
@@ -40,8 +40,8 @@ public class BuildingCursor extends CursorWrapper{
         building.setShorthand(shorthand);
         building.setColor(color);
         building.setAddress(address);
-        building.setX(x);
-        building.setY(y);
+        building.setLatitude(latitude);
+        building.setLongitude(longitude);
         building.setDescription(description);
 
         return building;

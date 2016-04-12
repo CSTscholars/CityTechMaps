@@ -68,4 +68,14 @@ public class DataManager {
         cursor.close();
         return building;
     }
+
+    /**
+     * Returns all building-floor pairs associated with specified building id.
+     *
+     * @param buildingId ID of building in question
+     * @return Cursor containing all building-floor object pairs
+     */
+    public BuildingToFloorCursor queryBuildingToFloors(long buildingId) {
+        return helper.queryBuildingToFloors(buildingId);
+    }
 }

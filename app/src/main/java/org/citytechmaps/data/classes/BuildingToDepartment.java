@@ -3,13 +3,13 @@ package org.citytechmaps.data.classes;
 public class BuildingToDepartment {
 
     private long id;
-    private long building;
-    private long department;
+    private Building building;
+    private Department department;
 
     public BuildingToDepartment() {
         this.id = -1;
-        this.building = -1;
-        this.department = -1;
+        this.building = null;
+        this.department = null;
     }
 
     public long getId() {
@@ -20,19 +20,19 @@ public class BuildingToDepartment {
         this.id = id;
     }
 
-    public long getBuilding() {
+    public Building getBuilding() {
         return building;
     }
 
-    public void setBuilding(long building) {
+    public void setBuilding(Building building) {
         this.building = building;
     }
 
-    public long getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(long department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 }
