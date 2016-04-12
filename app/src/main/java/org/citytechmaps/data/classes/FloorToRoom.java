@@ -3,13 +3,13 @@ package org.citytechmaps.data.classes;
 public class FloorToRoom {
 
     private long id;
-    private long floor;
-    private long room;
+    private Floor floor;
+    private Room room;
 
     public FloorToRoom() {
         this.id = -1;
-        this.floor = -1;
-        this.room = -1;
+        this.floor = null;
+        this.room = null;
     }
 
     public long getId() {
@@ -20,19 +20,19 @@ public class FloorToRoom {
         this.id = id;
     }
 
-    public long getFloor() {
+    public Floor getFloor() {
         return floor;
     }
 
-    public void setFloor(long floor) {
+    public void setFloor(Floor floor) {
         this.floor = floor;
     }
 
-    public long getRoom() {
+    public Room getRoom() {
         return room;
     }
 
-    public void setRoom(long room) {
+    public void setRoom(Room room) {
         this.room = room;
     }
 }

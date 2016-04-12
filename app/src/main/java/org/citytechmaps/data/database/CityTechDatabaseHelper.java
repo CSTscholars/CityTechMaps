@@ -9,7 +9,10 @@ import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
+import org.citytechmaps.data.classes.Floor;
+
 import java.sql.SQLException;
+import java.util.HashMap;
 
 /*
  * Singleton Class
@@ -94,7 +97,7 @@ public class CityTechDatabaseHelper extends SQLiteAssetHelper {
      * Helper method: used for queries that has no JOINs
      */
     private Cursor wrapHelper(QueryHelper qh) {
-        Log.d(TAG, "ROWS QUERIED: " + getWritableDatabase().rawQuery("SELECT DISTINCT * FROM building ORDER BY _id", null).getCount());
+        //Log.d(TAG, "ROWS QUERIED: " + getWritableDatabase().rawQuery("SELECT DISTINCT * FROM building ORDER BY _id", null).getCount());
         return getWritableDatabase().query(qh.Distinct, qh.Table, qh.Columns, qh.Selection, qh.SelectionArgs, qh.GroupBy, qh.Having, qh.OrderBy, qh.Limit);
     }
 
@@ -193,5 +196,99 @@ public class CityTechDatabaseHelper extends SQLiteAssetHelper {
         qh.Limit = "1";
 
         return new BuildingCursor(wrapHelper(qh));
+    }
+
+    /**
+     * Get all the ids of all floors in specified building
+     *
+     * SELECT DISTINCT * FROM building_floor WHERE building = buildingId
+     */
+    public BuildingToFloorCursor queryBuildingToFloors(long buildingId) {
+        QueryHelper qh = new QueryHelper();
+        qh.Distinct = true;
+        qh.Table = S.TABLE_BUILDING_FLOOR;
+        qh.Columns = null;
+        qh.Selection = S.COLUMN_BUILDING_FLOOR_BUILDING + " = ?";
+        qh.SelectionArgs = new String[]{String.valueOf(buildingId)};
+        qh.GroupBy = null;
+        qh.Having = null;
+        qh.OrderBy = null;
+        qh.Limit = null;
+
+        return new BuildingToFloorCursor(wrapJoinHelper(builderBuildingToFloors(qh.Distinct), qh));
+    }
+
+    /**
+     * Gets floor with specified id
+     *
+     * SELECT DISTINCT * FROM floor WHERE _id = id
+     */
+    public FloorCursor queryFloor(long id) {
+        QueryHelper qh = new QueryHelper();
+        qh.Distinct = true;
+        qh.Table = S.TABLE_BUILDING_FLOOR;
+        qh.Columns = null;
+        qh.Selection = S.COLUMN_FLOOR_ID + " = ? ";
+        qh.SelectionArgs = new String[]{String.valueOf(id)};
+        qh.GroupBy = null;
+        qh.Having = null;
+        qh.OrderBy = null;
+        qh.Limit = "1";
+
+        return new FloorCursor(wrapHelper(qh));
+    }
+
+    /*
+     * Helper method to query for BuildingToFloor
+     */
+    private SQLiteQueryBuilder builderBuildingToFloors(boolean distinct) {
+        /*
+         * SELECT btf._id AS _id, btf.building, btf.floor,
+         * b.name, b.shorthand, b.color, b.address, b.latitude, b.longitude, b.description,
+         * f.number, f.description, f.female_restroom, f.male_restroom, f.vending
+         * FROM building_floor AS btf
+         * LEFT OUTER JOIN building AS b ON btf.building = b._id
+         * LEFT OUTER JOIN floor AS f ON btf.floor = f._id;
+         */
+
+        String btf = "btf";
+        String b = "b";
+        String f = "f";
+
+        HashMap<String, String> projectionMap = new HashMap<>();
+
+        projectionMap.put("_id", btf + "." + S.COLUMN_BUILDING_FLOOR_ID + " AS " + " _id");
+
+        projectionMap.put(S.COLUMN_BUILDING_FLOOR_BUILDING, btf + "." + S.COLUMN_BUILDING_FLOOR_BUILDING);
+        projectionMap.put(S.COLUMN_BUILDING_FLOOR_FLOOR, btf + "." + S.COLUMN_BUILDING_FLOOR_FLOOR);
+        projectionMap.put(S.COLUMN_BUILDING_FLOOR_BUILDING, btf + "." + S.COLUMN_BUILDING_FLOOR_BUILDING);
+
+        projectionMap.put(S.COLUMN_BUILDING_NAME, b + "." + S.COLUMN_BUILDING_NAME);
+        projectionMap.put(S.COLUMN_BUILDING_SHORTHAND, b + "." + S.COLUMN_BUILDING_SHORTHAND);
+        projectionMap.put(S.COLUMN_BUILDING_COLOR, b + "." + S.COLUMN_BUILDING_COLOR);
+        projectionMap.put(S.COLUMN_BUILDING_ADDRESS, b + "." + S.COLUMN_BUILDING_ADDRESS);
+        projectionMap.put(S.COLUMN_BUILDING_LATITUDE, b + "." + S.COLUMN_BUILDING_LATITUDE);
+        projectionMap.put(S.COLUMN_BUILDING_LONGITUDE, b + "." + S.COLUMN_BUILDING_LONGITUDE);
+        projectionMap.put(S.COLUMN_BUILDING_DESCRIPTION, b + "." + S.COLUMN_BUILDING_DESCRIPTION);
+
+        projectionMap.put(S.COLUMN_FLOOR_NUMBER, f + "." + S.COLUMN_FLOOR_NUMBER);
+        projectionMap.put(S.COLUMN_FLOOR_DESCRIPTION, f + "." + S.COLUMN_FLOOR_DESCRIPTION);
+        projectionMap.put(S.COLUMN_FLOOR_FEMALE_RESTROOM, f + "." + S.COLUMN_FLOOR_FEMALE_RESTROOM);
+        projectionMap.put(S.COLUMN_FLOOR_MALE_RESTROOM, f + "." + S.COLUMN_FLOOR_MALE_RESTROOM);
+        projectionMap.put(S.COLUMN_FLOOR_VENDING, f + "." + S.COLUMN_FLOOR_VENDING);
+
+        // Set up QueryBuilder
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        qb.setTables(S.TABLE_BUILDING_FLOOR +  " AS " + btf
+                    + " LEFT OUTER JOIN " + S.TABLE_BUILDING + " AS " + b
+                    + " ON " + btf + "." + S.COLUMN_BUILDING_FLOOR_BUILDING + " = " + b + "." + S.COLUMN_BUILDING_ID
+                    + " LEFT OUTER JOIN " + S.TABLE_FLOOR + " AS " + f
+                    + " ON " + btf + "." + S.COLUMN_BUILDING_FLOOR_FLOOR + " = " + f + "." + S.COLUMN_FLOOR_ID);
+
+        qb.setDistinct(distinct);
+        qb.setProjectionMap(projectionMap);
+
+        return qb;
     }
 }

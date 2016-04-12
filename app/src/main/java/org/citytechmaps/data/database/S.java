@@ -14,8 +14,8 @@ public class S {
     static final String COLUMN_BUILDING_SHORTHAND = "shorthand";
     static final String COLUMN_BUILDING_COLOR = "color";
     static final String COLUMN_BUILDING_ADDRESS = "address";
-    static final String COLUMN_BUILDING_X = "x";
-    static final String COLUMN_BUILDING_Y = "y";
+    static final String COLUMN_BUILDING_LATITUDE = "latitude";
+    static final String COLUMN_BUILDING_LONGITUDE = "longitude";
     static final String COLUMN_BUILDING_DESCRIPTION = "description";
 
     // Building - Department

@@ -2,12 +2,11 @@ package org.citytechmaps.ui.list;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Menu;
 
-import org.citytechmaps.ui.list.adapter.MenuSection;
-import org.citytechmaps.ui.general.GenericActivity;
+import org.citytechmaps.ui.general.adapter.MenuSection;
+import org.citytechmaps.ui.general.GenericFragmentActivity;
 
-public class BuildingListActivity extends GenericActivity {
+public class BuildingListActivity extends GenericFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +14,7 @@ public class BuildingListActivity extends GenericActivity {
         setTitle("Buildings");
 
         // Top level activity
-        super.setAsTopLevel();
+        setAsTopLevel();
     }
 
     @Override

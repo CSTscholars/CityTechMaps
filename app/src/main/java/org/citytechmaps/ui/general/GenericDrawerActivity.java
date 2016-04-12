@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -27,7 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.citytechmaps.R;
-import org.citytechmaps.ui.list.adapter.MenuSection;
+import org.citytechmaps.ui.general.adapter.MenuSection;
 import org.citytechmaps.ui.list.BuildingListActivity;
 
 public abstract class GenericDrawerActivity extends AppCompatActivity {
@@ -53,7 +54,6 @@ public abstract class GenericDrawerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         isTopLevel = false;
     }
 
@@ -96,8 +96,14 @@ public abstract class GenericDrawerActivity extends AppCompatActivity {
             }
         };
 
+        // Enable the "hamburger" bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
+
         // Enable menu button to toggle drawer
-        //drawerToggle.setDrawerIndicatorEnabled(false);
+        drawerToggle.setDrawerIndicatorEnabled(false);
         drawerLayout.setDrawerListener(drawerToggle);
 
         // Automatically open drawer on launch
@@ -124,10 +130,6 @@ public abstract class GenericDrawerActivity extends AppCompatActivity {
         // VERY IMPORTANT
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        if (intent.getClass().equals(this.getClass())) {
-            return;
-        }
-
         final Intent finalIntent = intent;
         startActivity(finalIntent);
 
@@ -140,6 +142,13 @@ public abstract class GenericDrawerActivity extends AppCompatActivity {
 
         drawerAdapter = new DrawerAdapter(getApplicationContext(), R.layout.drawer_list_item, menuItems);
         lvDrawer.setAdapter(drawerAdapter);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        drawerToggle.syncState();
     }
 
     public void enableDrawerIndicator() {
@@ -161,8 +170,6 @@ public abstract class GenericDrawerActivity extends AppCompatActivity {
     protected abstract MenuSection getSelectedSection();
 
     // Handle toggle state sync across configuration changes (rotation)
-
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

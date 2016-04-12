@@ -11,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.citytechmaps.R;
 import org.citytechmaps.data.classes.Building;
 import org.citytechmaps.data.database.BuildingCursor;
 import org.citytechmaps.loader.BuildingListCursorLoader;
+import org.citytechmaps.ui.listener.BuildingClickListener;
 
 public class BuildingListFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 
@@ -67,12 +69,16 @@ public class BuildingListFragment extends ListFragment implements LoaderCallback
             final Building building = buildingCursor.getBuilding();
 
             // Get list item views
+            RelativeLayout rlListItem = (RelativeLayout) view.findViewById(R.id.rlListItem);
             TextView tvBuildingName = (TextView) view.findViewById(R.id.tvBuildingName);
             TextView tvBuildingShorthand = (TextView) view.findViewById(R.id.tvBuildingShorthand);
 
             tvBuildingName.setText(building.getName());
             tvBuildingShorthand.setText(building.getShorthand());
             tvBuildingShorthand.setTextColor(Color.parseColor(building.getColor()));
+
+            // Set click listener
+            rlListItem.setOnClickListener(new BuildingClickListener(context, building.getId()));
         }
     }
 }
